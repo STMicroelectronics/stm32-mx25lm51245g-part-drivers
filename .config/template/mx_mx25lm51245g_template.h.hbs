@@ -1,0 +1,85 @@
+{{!--
+  ******************************************************************************
+  * file           : mx_mx25lm51245g_template.h.hbs
+  * brief          : Code generation for the MX25LM51245G part driver.
+  ******************************************************************************
+  * attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+~--}}
+/**
+  ******************************************************************************
+  * file           : mx_mx25lm51245g.h
+  * brief          : Code generation for the MX25LM51245G part driver.
+  ******************************************************************************
+  * attention
+  *
+  * Copyright (c) {{#unless (eq 2026 (toInt (year)))}}2026-{{/unless}}{{year}} STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the mx_mx25lm51245g_license.md file
+  * in the same directory as the generated code.
+  * If no mx_mx25lm51245g_license.md file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+{{assign 'mx25lm51245g_instances' (@root.SWConfigurationAPI.getInstances  "STMicroelectronics::Board Part:STM32CubeMX2 Config:MX25LM51245G")~}}
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef MX_MX25LM51245G_H
+#define MX_MX25LM51245G_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "mx25lm51245g.h"
+#include "mx_hal_def.h"
+
+/* Exported macro ------------------------------------------------------------*/
+{{#each @root.mx25lm51245g_instances}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+{{#with @root.ctx}}
+/* Part Config ID */
+#define MX25LM51245G_{{@index}}                              {{@index}}
+{{#if (length info.labels)}}
+/* User-defined aliases for the part drivers instances IDs and getter functions */
+{{else}}
+/* No label has been defined for this part driver instance,
+ * so no alias is generated for MX25LM51245G_{{@index}} or mx_mx25lm51245g_{{@index}}_getobject(). */
+{{/if}}
+{{#each info.labels}}
+#define {{this}}                          MX25LM51245G_{{@../index}}
+{{/each}}
+{{#each info.labels}}
+#define {{lowercase this}}_getobject()    mx_mx25lm51245g_{{@../index}}_getobject()
+{{/each}}
+
+{{!---------------------- XSPI IO Properties ---------------------------------------------------}}
+/* Resource bindings */
+#define MX25LM51245G_{{@index}}_BASE_ADDR         {{uppercase resourcesAllocation.xspiCfg.xspi_instance.selection}}_BASE
+#define MX25LM51245G_{{@index}}_XSPI_GETHANDLE    mx_{{lowercase resourcesAllocation.xspiCfg.xspi_instance.selection}}_gethandle
+{{/with}} {{!-- @root.ctx --}}
+{{/each}} {{!-- @root.mx25lm51245g_instances --}}
+
+{{!---------------------- Part Getters FUNC --------------------------------------------------}}
+/* Functions to retrieve the part object */
+{{#each @root.mx25lm51245g_instances}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+{{#with @root.ctx}}
+mx25lm51245g_obj_t *mx_mx25lm51245g_{{@index}}_getobject(void);
+{{/with}} {{!-- @root.ctx --}}
+{{/each}} {{!-- @root.mx25lm51245g_instances --}}
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* MX_MX25LM51245G_H */

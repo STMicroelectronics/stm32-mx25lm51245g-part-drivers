@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:stm32="https://developer.st.com/schemas/stm32cube/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.7.55" xsi:noNamespaceSchemaLocation="PACK.xsd" xsi:schemaLocation="https://developer.st.com/schemas/stm32cube/1.0.0 stm32cube.xsd">
+  <vendor>STMicroelectronics</vendor>
+  <name>mx25lm51245g_part_drivers</name>
+  <description>MX25LM51245G Part Drivers SW Pack</description>
+  <url>https://developer.st.com/st-pack-server/api/v1/pack/</url>
+  <repository type="git">https://github.com/STMicroelectronics/stm32-mx25lm51245g-part-drivers</repository>
+  <license>LICENSE.md</license>
+  <environments>
+    <environment name="STM32Cube">
+      <stm32:pack type="PARTDRV" friendlyName="mx25lm51245g" shortDesc="mx25lm51245g part driver">
+        <relocation-info parent="part_drivers" layer="" element=""/>
+        <compatibility>
+          <release version="2.0.0">
+            <applicable-schema schemaType="sw-configuration" schemaVersion="3.8.0"/>
+            <applicable-api-group apiType="codegen-getters">
+              <applicable-api apiType="SWConfigurationAPI" apiVersion="1.0.0"/>
+            </applicable-api-group>
+          </release>
+        </compatibility>
+      </stm32:pack>
+    </environment>
+  </environments>
+  <ECCN>
+    <ECCN-EU>NEC</ECCN-EU>
+    <ECCN-US>EAR99</ECCN-US>
+  </ECCN>
+  <changelogs>
+    <changelog id="Release Notes" name="Release_Notes.html"/>
+  </changelogs>
+  <releases>
+    <release version="2.0.0" date="2026-08-24">
+      Refer to Release_Notes.md for release details.
+    </release>
+  </releases>
+  <keywords>
+    <keyword>ST</keyword>
+    <keyword>STMicroelectronics Board Part Package</keyword>
+    <keyword>BSP</keyword>
+    <keyword>Parts</keyword>
+    <keyword>Drivers</keyword>
+    <keyword>MX25LM51245G</keyword>
+    <keyword>OCTOSPI</keyword>
+    <keyword>Memory</keyword>
+  </keywords>
+  <conditions>
+    <condition id="MX25LM51245G Core Condition">
+      <description>STMicroelectronics MX25LM51245G Core Driver</description>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="XSPI"/>
+    </condition>
+    <condition id="MX25LM51245G CFG Condition">
+      <description>STMicroelectronics configuration for MX25LM51245G part driver</description>
+    </condition>
+  </conditions>
+  <generators>
+    <generator id="mx25lm51245g_mx2codegen">
+      <description>STMicroelectronics: STM32 Cube Code Generator for MX25LM51245G Drivers Pack</description>
+      <exe>
+        <command host="win">.config/gen_code.bat</command>
+        <command host="linux">.config/gen_code.sh</command>
+        <command host="mac">.config/gen_code.sh</command>
+        <argument>mx25lm51245g_mx2codegen</argument>
+        <argument>$G</argument>
+        <argument>STMicroelectronics.mx25lm51245g_part_drivers.gpdsc.hbs</argument>
+        <argument mode="dry-run">--dry-run</argument>
+      </exe>
+      <gpdsc name="$P/STMicroelectronics.mx25lm51245g_part_drivers.gpdsc"/>
+    </generator>
+  </generators>
+  <components>
+    <component Cvendor="STMicroelectronics" Cclass="Board Part" Cgroup="Memory" Csub="MX25LM51245G Core" Cversion="1.0.0" condition="MX25LM51245G Core Condition">
+      <description>Driver for MX25LM51245G OCTOSPI memory</description>
+      <files>
+        <file category="doc" name="README.md"/>
+        <file category="doc" name="SW_Security_Level.md"/>
+        <file category="doc" name="doc/subbrand-stm32.svg"/>
+        <file category="doc" name="doc/mx25lm51245g_async_write_diagram.png"/>
+        <file category="header" name="mx25lm51245g.h"/>
+        <file category="source" name="mx25lm51245g.c"/>
+      </files>
+    </component>
+    <component generator="mx25lm51245g_mx2codegen" Cclass="Board Part" Cgroup="STM32CubeMX2 Config" Csub="MX25LM51245G" Cversion="1.0.0" condition="MX25LM51245G CFG Condition" maxInstances="1">
+      <description>MX25LM51245G STM32CubeMX2 Config</description>
+      <environments>
+        <environment name="STM32Cube">
+          <stm32:component>
+            <default-instance-name-prefix>MX25LM51245G</default-instance-name-prefix>
+            <supported-part-types>
+              <supported-part-type Hvendor="Macronix" Hname="MX25LM51245" Hvariant="MX25LM51245GXDI00"/>
+            </supported-part-types>
+          </stm32:component>
+        </environment>
+      </environments>
+      <files>
+        <file category="genAsset" name=".config/gen_code.bat"/>
+        <file category="genAsset" name=".config/gen_code.sh"/>
+        <file category="genAsset" name=".config/STMicroelectronics.mx25lm51245g_part_drivers.gpdsc.hbs"/>
+        <file category="genAsset" name=".config/mx_mx25lm51245g_parameters.json"/>
+        <file category="genAsset" name=".config/template/mx_mx25lm51245g_template.h.hbs"/>
+        <file category="genAsset" name=".config/template/mx_mx25lm51245g_template.c.hbs"/>
+        <file category="genAsset" name=".config/template/mx_mx25lm51245g_license_template.md.hbs"/>
+      </files>
+    </component>
+  </components>
+</package>

@@ -1,0 +1,88 @@
+{{!--
+  ******************************************************************************
+  * file           : mx_mx25lm51245g_template.c.hbs
+  * brief          : Code generation for the MX25LM51245G part driver.
+  ******************************************************************************
+  * attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+~--}}
+/**
+  ******************************************************************************
+  * file           : mx_mx25lm51245g.c
+  * brief          : Code generation for the MX25LM51245G part driver.
+  ******************************************************************************
+  * attention
+  *
+  * Copyright (c) {{#unless (eq 2026 (toInt (year)))}}2026-{{/unless}}{{year}} STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the mx_mx25lm51245g_license.md file
+  * in the same directory as the generated code.
+  * If no mx_mx25lm51245g_license.md file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+{{assign 'mx25lm51245g_instances' (@root.SWConfigurationAPI.getInstances  "STMicroelectronics::Board Part:STM32CubeMX2 Config:MX25LM51245G")~}}
+
+/* Includes ------------------------------------------------------------------*/
+#include "mx_mx25lm51245g.h"
+
+{{!---------------------- Part OBJs ----------------------------------------------------------}}
+{{#each @root.mx25lm51245g_instances}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+static mx25lm51245g_obj_t  mx25lm51245g_{{@index}}_obj;
+{{/each}}
+
+{{!---------------------- Part WEAK FUNC -----------------------------------------------------}}
+/**
+  * @brief initialize the IO layer.
+  * @param  pio      pointer to the part IO structure.
+  * @retval error status.
+  */
+int32_t mx25lm51245g_io_init(mx25lm51245g_io_t *pio)
+{
+  /* Part Status */
+  int ret = 0;
+
+  switch (pio->id)
+  {
+{{#each @root.mx25lm51245g_instances}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+{{#with @root.ctx}}
+    case MX25LM51245G_{{@index}}:
+      pio->phxspi                      = MX25LM51245G_{{@index}}_XSPI_GETHANDLE();
+      pio->memory_base_address         = MX25LM51245G_{{@index}}_BASE_ADDR;
+      break;
+{{/with}} {{!-- @root.ctx --}}
+{{/each}} {{!-- @root.mx25lm51245g_instances --}}
+    default:
+      /* Error -- Unknown ID */
+      ret = -1;
+      break;
+  }
+
+  return ret;
+}
+
+{{!---------------------- Part Getters FUNC --------------------------------------------------}}
+{{#each @root.mx25lm51245g_instances}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+{{#with @root.ctx}}
+/**
+  * @brief Function to retrieve the Part object {{@index}}.
+  * @retval part object.
+  */
+mx25lm51245g_obj_t *mx_mx25lm51245g_{{@index}}_getobject(void)
+{
+  return &mx25lm51245g_{{@index}}_obj;
+}
+{{/with}} {{!-- @root.ctx --}}
+{{/each}} {{!-- @root.mx25lm51245g_instances --}}
